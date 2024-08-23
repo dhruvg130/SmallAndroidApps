@@ -76,7 +76,7 @@ fun GreetingImage(text1: String, text2: String, text3: String, modifier: Modifie
 fun GreetingText(text1: String, text2: String, text3: String, modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Bottom
+//            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = text1,
