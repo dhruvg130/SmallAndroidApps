@@ -19,7 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BirthdayCard"
-include(":app")
+rootProject.name = "BusinessCard"
 include(":app")
  
