@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BusinessCard</string>
+    <string name="name">Dhruv</string>
+    <string name="position">Student</string>
+    <string name="phone_number">847-749-5161</string>
+    <string name="instagram">\@dhruvg30</string>
+    <string name="email">gupta8737@students.d211.org</string>
 </resources>
