@@ -23,6 +23,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -59,7 +61,7 @@ fun BusinessCard(text1: String, text2: String, text3: String, text4: String, tex
             contentDescription = null,
             modifier = Modifier
                 .size(350.dp)
-                .offset(y = 20.dp)
+                .offset(y = 80.dp)
             //ChatGpt link which was used to help format image
             // https://chatgpt.com/share/c0d85a34-07f0-4797-a11b-749f86cf2964
         )
@@ -72,7 +74,8 @@ fun BusinessCard(text1: String, text2: String, text3: String, text4: String, tex
     )
     UpperPart(
         name = text1,
-        title = text2)
+        title = text2
+    )
 }
 
 @Composable
@@ -88,12 +91,14 @@ fun LowerPart(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .offset(y = -30.dp)
+            .offset(y = -50.dp)
     ) {
         Row {
             Icon(
                 imageVector = Icons.Filled.Phone,
-                contentDescription = "Phone"
+                contentDescription = "Phone",
+                tint = Color(red = 85, green = 3, blue = 3)
+
             )
             Text(
                 text = number,
@@ -104,7 +109,8 @@ fun LowerPart(
             Image(
                 painter = painterResource(id = R.drawable.instagram),
                 contentDescription = null,
-                modifier = Modifier.size(35.dp)
+                modifier = Modifier.size(35.dp),
+                colorFilter = ColorFilter.tint(Color(red = 85, green = 3, blue = 3))
             )
             Text(
                 text = socialMedia,
@@ -116,7 +122,9 @@ fun LowerPart(
                 imageVector = Icons.Filled.MailOutline,
                 contentDescription = "Phone",
                 modifier = Modifier
-                    .size(30.dp)
+                    .size(30.dp),
+                tint = Color(red = 85, green = 3, blue = 3)
+
             )
             Text(
                 text = email,
@@ -133,14 +141,15 @@ fun UpperPart(name: String, title: String, modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize ()
+            .offset(y = 75.dp)
     ) {
         Text(
             text = name,
-            fontSize = 55.sp,
+            fontSize = 60.sp,
         )
         Text(
             text = title,
-            fontSize = 30.sp
+            fontSize = 35.sp
 
         )
     }
