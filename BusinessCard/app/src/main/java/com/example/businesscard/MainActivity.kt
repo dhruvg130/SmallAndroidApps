@@ -61,7 +61,7 @@ fun BusinessCard(text1: String, text2: String, text3: String, text4: String, tex
             contentDescription = null,
             modifier = Modifier
                 .size(350.dp)
-                .offset(y = 80.dp)
+                .offset(y = 60.dp)
             //ChatGpt link which was used to help format image
             // https://chatgpt.com/share/c0d85a34-07f0-4797-a11b-749f86cf2964
         )
@@ -156,7 +156,7 @@ fun UpperPart(name: String, title: String, modifier: Modifier = Modifier) {
 
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     BusinessCardTheme {
