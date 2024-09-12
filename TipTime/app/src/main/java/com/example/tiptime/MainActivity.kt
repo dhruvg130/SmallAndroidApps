@@ -14,7 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.example.tiptime.R
 import com.example.tiptime.ui.theme.TipTimeTheme
 import java.text.NumberFormat
-
+import androidx.compose.material3.Switch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,19 +53,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TipTimeLayout() {
+    var roundUp by remember { mutableStateOf(false) }
+    var tipInput by remember { mutableStateOf("") }
     var amountInput by remember { mutableStateOf("") }
     val amount = amountInput.toDoubleOrNull() ?: 0.0
-    var tipInput by remember { mutableStateOf("") }
     val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
-    val tip = calculateTip(amount, tipPercent)
+    val tip = calculateTip(amount, tipPercent, roundUp)
 
     Column(
-            modifier = Modifier
-                .statusBarsPadding()
-                .padding(horizontal = 40.dp)
-                .safeDrawingPadding(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .padding(40.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = stringResource(R.string.calculate_tip, "$0.00"),
@@ -82,8 +85,11 @@ fun TipTimeLayout() {
                      .padding(bottom = 32.dp)
                      .fillMaxWidth()
              )
-
-
+            RoundTheTipRow(
+                roundUp = roundUp,
+                onRoundUpChanged = { roundUp = it },
+                modifier = Modifier.padding(bottom = 32.dp)
+            )
              EditNumberField(
                  label = R.string.how_was_the_service,
                  keyboardOptions = KeyboardOptions.Default.copy(
@@ -105,13 +111,28 @@ fun TipTimeLayout() {
     }
 
 @Composable
-fun RoundTheTipRow(modifier: Modifier = Modifier) {
+fun RoundTheTipRow(
+    roundUp: Boolean,
+    onRoundUpChanged: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .size(40.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Text(
+            text = stringResource(R.string.round_up_tip)
+        )
+        Switch(
+            modifier = modifier
+                .fillMaxWidth()
+                .wrapContentWidth(Alignment.End),
+            checked = roundUp,
+            onCheckedChange = onRoundUpChanged,
+        )
+
     }
 }
 
@@ -120,9 +141,17 @@ fun RoundTheTipRow(modifier: Modifier = Modifier) {
  * according to the local currency.
  * Example would be "$10.00".
  */
-private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
-    val tip = tipPercent / 100 * amount
+private fun calculateTip(
+    amount: Double,
+    tipPercent: Double = 15.0,
+    roundUp: Boolean
+): String {
+    var tip = tipPercent / 100 * amount
+    if (roundUp) {
+        tip = kotlin.math.ceil(tip)
+    }
     return NumberFormat.getCurrencyInstance().format(tip)
+
 }
 
 @Composable
