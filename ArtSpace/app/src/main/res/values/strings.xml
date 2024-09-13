@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">ArtSpace</string>
+    <string name="FirstName">Kabir</string>
+    <string name="SecondName">Khushi</string>
+    <string name="ThirdName">Dhruv</string>
+    <string name="FourthName">Param</string>
+    <string name="FifthName">Stanley</string>
+    <string name="SitxhName">Tyler</string>
+    <string-array name="childrenNames">
+        <item>Kabir</item>
+        <item>Khushi</item>
+        <item>Dhruv</item>
+        <item></item>
+    </string-array>
 </resources>
