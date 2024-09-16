@@ -1,14 +1,19 @@
 <resources>
-    <string name="FirstName">Kabir</string>
-    <string name="SecondName">Khushi</string>
-    <string name="ThirdName">Dhruv</string>
-    <string name="FourthName">Param</string>
-    <string name="FifthName">Stanley</string>
-    <string name="SitxhName">Tyler</string>
-    <string-array name="childrenNames">
+    <string name="app_name"> ArtSpace </string>
+    <string-array name="children_names">
         <item>Kabir</item>
         <item>Khushi</item>
         <item>Dhruv</item>
-        <item></item>
+        <item>Param</item>
+        <item>Stanley</item>
+        <item>Tyler</item>
+    </string-array>
+    <string-array name="age">
+        <item>7</item>
+        <item>2</item>
+        <item>6</item>
+        <item>4</item>
+        <item>7</item>
+        <item>5</item>
     </string-array>
 </resources>
