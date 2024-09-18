@@ -6,6 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +34,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -71,77 +75,82 @@ fun Display(
     val context = LocalContext.current
     val nameArray = context.resources.getStringArray(R.array.children_names)
     val ageArray = context.resources.getStringArray(R.array.age)
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(100.dp))
-        Image(
+
+        Column(
+            modifier = Modifier
+                .background(Color(254,251,234))
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(100.dp))
+            Image(
                 painter = painterResource(id = images[currentImageIndex]),
                 contentDescription = "Children",
-            modifier = Modifier
-                .size(300.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            contentScale = ContentScale.Crop
+                modifier = Modifier
+                    .size(300.dp)
+                    .shadow(20.dp, RoundedCornerShape(8.dp))
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop,
+
             )
-        Spacer(modifier = Modifier.height(100.dp))
-        Text(
+            Spacer(modifier = Modifier.height(100.dp))
+            Text(
                 text = nameArray[currentImageIndex],
                 fontSize = 40.sp
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = nameArray[currentImageIndex] + " is " + ageArray[currentImageIndex] + " years old in this picture!",
-            fontSize = 20.sp
-        )
-        Spacer(modifier = Modifier.height(50.dp))
-        ChangePic(
-            previousImage = {
-                currentImageIndex = if (currentImageIndex > 0) {
-                    currentImageIndex - 1
-                } else {
-                    images.size - 1
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = nameArray[currentImageIndex] + " is " + ageArray[currentImageIndex] + " years old in this picture!",
+                fontSize = 20.sp
+            )
+            Spacer(modifier = Modifier.height(50.dp))
+            ChangePic(
+                previousImage = {
+                    currentImageIndex = if (currentImageIndex > 0) {
+                        currentImageIndex - 1
+                    } else {
+                        images.size - 1
+                    }
+                },
+                nextImage = {
+                    currentImageIndex = if (currentImageIndex < images.size - 1) {
+                        currentImageIndex + 1
+                    } else {
+                        0
+                    }
                 }
-            },
-            nextImage = {
-                currentImageIndex = if (currentImageIndex < images.size - 1) {
-                    currentImageIndex + 1
-                } else {
-                    0
-                }
-            }
-        )
+            )
+        }
     }
-}
+
 @Composable
 fun ChangePic(
     previousImage: () -> Unit,
     nextImage: () -> Unit,
     modifier: Modifier = Modifier
 ){
-    var screenNumber by remember { mutableStateOf(1) }
-    Row {
-        Button(
-            onClick = previousImage,
-            shape = RoundedCornerShape(topStart = 10.dp, bottomEnd = 20.dp),
-            elevation = ButtonDefaults.buttonElevation(
-                defaultElevation = 10.dp,
-                pressedElevation = 6.dp
-            )
-        ) {
-            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null )
-        }
-        Spacer(modifier = Modifier.width(40.dp))
-        Button(
-            onClick = nextImage,
-            shape = RoundedCornerShape(topStart = 10.dp, bottomEnd = 20.dp),
-            elevation = ButtonDefaults.buttonElevation(
-                defaultElevation = 10.dp,
-                pressedElevation = 6.dp
-            )
-        ) {
-            Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = null )
+
+        Row {
+            Button(
+                onClick = previousImage,
+                shape = RoundedCornerShape(topStart = 10.dp, bottomEnd = 20.dp),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 20.dp,
+                    pressedElevation = 6.dp
+                )
+            ) {
+                Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null)
+            }
+            Spacer(modifier = Modifier.width(40.dp))
+            Button(
+                onClick = nextImage,
+                shape = RoundedCornerShape(topStart = 10.dp, bottomEnd = 20.dp),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 20.dp,
+                    pressedElevation = 6.dp
+                )
+            ) {
+                Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = null)
+            }
         }
     }
-}
